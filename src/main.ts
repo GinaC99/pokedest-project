@@ -8,7 +8,13 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true
+      forbidNonWhitelisted: true,
+      transform: true,
+      // esto es para habilitar la conversion automatica, el contra es que se necesita mas memoria para realizar
+      // este proceso
+      transformOptions: {
+        enableImplicitConversion: true
+      }
     })
   )
   await app.listen(3000);

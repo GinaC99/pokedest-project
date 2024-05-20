@@ -10,7 +10,8 @@ export class PokemonService {
 
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokemonModel: Model<Pokemon>) { }
+    private readonly pokemonModel: Model<Pokemon>
+  ) { }
 
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLowerCase();
@@ -21,8 +22,15 @@ export class PokemonService {
       return this.handleExceptions(error.code, "creacion pokemon");}
   }
 
-  findAll() {
-    return this.pokemonModel.find();
+  findAll(limit, offset) {
+    return this.pokemonModel.find()
+    .limit(limit)
+    .skip(offset)
+    .sort({
+      no: 1
+    })
+    .select('-__v')
+    ;
   }
 
   async findOne(term: string) {
