@@ -66,7 +66,6 @@ export class PokemonService {
   async remove(terms: string) {
 
     const { deletedCount } = await this.pokemonModel.deleteOne({ _id: terms });
-    console.log("🚀 ~ PokemonService ~ remove ~ deletedCount:", !deletedCount)
     if (!deletedCount) throw new NotFoundException(`No se encuentra el is ${terms}`)
     return 'Se elimino el registro exitosamente';
   
